@@ -20,5 +20,14 @@ public class NoteDbContext(DbContextOptions<NoteDbContext> options) : DbContext(
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Note>().ToTable("notes");
+        
+        modelBuilder.Entity<Note>()
+            .Property(n => n.CreatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<Note>()
+            .Property(n => n.UpdatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .ValueGeneratedOnAddOrUpdate();
     }
 }

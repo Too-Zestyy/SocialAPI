@@ -11,7 +11,7 @@ public class Note
     [Column("title")]
     public required string Title { get; set; }
     [Column("content")]
-    public string Content { get; set; }
+    public string? Content { get; set; }
     [Column("created_at")]
     public DateTime CreatedAt { get; set; }
     [Column("updated_at")]
