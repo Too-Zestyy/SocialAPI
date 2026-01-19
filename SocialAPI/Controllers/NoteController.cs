@@ -31,7 +31,6 @@ public class NoteController : ControllerBase
     public ActionResult<Note> GetWithId(int id)
     {
         var note = new Note{Title = "Title example", Content = "This is some content!", CreatedAt = DateTime.Now, Id = 1, UpdatedAt = DateTime.Now};
-
         return Ok(note);
     }
 

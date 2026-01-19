@@ -1,5 +1,8 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.IdentityModel.Tokens;
 using SocialAPI;
 using SocialAPI.Models;
 
@@ -10,6 +13,28 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NoteDbContext>();
+
+// TODO: Replace with asymmetric key
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(jwtOptions =>
+    {
+        jwtOptions.Authority = "C#-Notes-App";
+        jwtOptions.RequireHttpsMetadata = false;
+        jwtOptions.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = JwtConst.Issuer,
+            ValidAudience = JwtConst.Audience,
+            IssuerSigningKey = JwtConst.Key,
+            // IssuerSigningKey = new SymmetricSecurityKey(
+            //     new byte[256]
+            //     )
+        };
+    });
+builder.Services.AddAuthorization();
 // builder.Services.AddDbContext<NoteDBContext>(options => {});
 
 // builder.Services.AddDbContextPool<NotesContext>(opt => 
@@ -29,6 +54,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
