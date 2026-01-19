@@ -34,7 +34,8 @@ public class AuthController : ControllerBase
         };
 
         var key = JwtConst.Key;
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        // var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var creds = new SigningCredentials(JwtConst.PrivateKey, SecurityAlgorithms.EcdsaSha256);
 
         var token = new JwtSecurityToken(
             issuer: JwtConst.Issuer,

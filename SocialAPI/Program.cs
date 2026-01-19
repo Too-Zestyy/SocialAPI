@@ -19,6 +19,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(jwtOptions =>
     {
         jwtOptions.Authority = "C#-Notes-App";
+        // Only required for development - should be removed in prod
+        // FIXME
         jwtOptions.RequireHttpsMetadata = false;
         jwtOptions.TokenValidationParameters = new TokenValidationParameters
         {
@@ -28,7 +30,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = JwtConst.Issuer,
             ValidAudience = JwtConst.Audience,
-            IssuerSigningKey = JwtConst.Key,
+            IssuerSigningKey = JwtConst.PublicKey,
             // IssuerSigningKey = new SymmetricSecurityKey(
             //     new byte[256]
             //     )
