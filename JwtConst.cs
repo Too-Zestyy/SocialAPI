@@ -13,7 +13,7 @@ public static class JwtConst
     public static readonly SymmetricSecurityKey Key = new (new byte[256]);
 
     public static readonly ECDsaSecurityKey PublicKey = LoadKey("./public.pem");
-    public static readonly ECDsaSecurityKey PrivateKey = LoadKey("./keypair.pem");
+    public static readonly ECDsaSecurityKey PrivateKey = LoadKey("./private.pem");
 
     private static ECDsaSecurityKey LoadKey(string path)
     {
