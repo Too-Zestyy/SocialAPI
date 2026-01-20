@@ -13,7 +13,11 @@ public class Note
     [Column("content")]
     public string? Content { get; set; }
     [Column("created_at")]
+    
+    public List<NoteTag> Tags { get; } = [];
+    
     public DateTime CreatedAt { get; set; }
     [Column("updated_at")]
     public DateTime UpdatedAt { get; set; }
+    
 }
