@@ -6,7 +6,7 @@ namespace SocialAPI;
 public class NoteDbContext(DbContextOptions<NoteDbContext> options) : DbContext(options)
 {
     public DbSet<Note> Notes { get; set; }
-    // public DbSet<Post> Posts { get; set; }
+    public DbSet<NoteTag> NoteTags { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -19,8 +19,6 @@ public class NoteDbContext(DbContextOptions<NoteDbContext> options) : DbContext(
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Note>().ToTable("notes");
-        
         modelBuilder.Entity<Note>()
             .Property(n => n.CreatedAt)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")
