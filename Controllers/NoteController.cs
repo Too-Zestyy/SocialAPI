@@ -28,9 +28,10 @@ public class NoteController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public ActionResult<Note> GetWithId(int id)
+    public async Task<ActionResult<Note>> GetWithId(NoteDbContext dbCtx, int id)
     {
-        var note = new Note{Title = "Title example", Content = "This is some content!", CreatedAt = DateTime.Now, Id = 1, UpdatedAt = DateTime.Now};
+        Note note = await dbCtx.Notes.FindAsync(id);
+        
         return Ok(note);
     }
 
